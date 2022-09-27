@@ -1,4 +1,4 @@
-package com.example.lista04
+package com.example.trabalho_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

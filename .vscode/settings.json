@@ -1,8 +1,0 @@
-{
-    "prettier.tabWidth": 4,
-    "prettier.useTabs": true,
-    "emmet.triggerExpansionOnTab": true,
-    "pythonIndent.useTabOnHangingIndent": true,
-    "editor.tabSize": 4,
-    "editor.useTabStops": false
-}
