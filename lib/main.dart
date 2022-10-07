@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
-import 'package:trabalho_flutter/widgets/Paginas.dart';
+import 'package:trabalho_flutter/widgets/HomePage.dart';
 import 'package:trabalho_flutter/widgets/Historico.dart';
 //placar do truco
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return const MaterialApp(
-			title: 'Lista 04',
+			title: 'Placar Truco',
 			home: MyHomePage(),
 		);
 	}
@@ -27,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage>{
+	  
 	var _currentPage = 0;
 	final _page =[
 		const HomePage(),
@@ -45,9 +46,14 @@ class _MyHomePageState extends State<MyHomePage>{
 	Widget build(BuildContext context){
 		return  Scaffold(
 			appBar: AppBar(
-				title: const Text("Flutter Bootstrap", style: TextStyle(color: Colors.black)),
+				title: const Text("Placar Truco", style: TextStyle(color: Colors.white)),
 				backgroundColor: Colors.black,
-				
+				shape: const Border(
+					bottom: BorderSide(
+						color: Colors.red,
+						width: 3,
+					),
+				),
 			),
 			bottomNavigationBar:  BottomNavigationBar(
 				items: const [
@@ -75,8 +81,7 @@ class _MyHomePageState extends State<MyHomePage>{
 				},
 			),
 			body:_page.elementAt(_currentPage),
-				backgroundColor: Colors.black,
-
+			backgroundColor: Colors.black,
 		);
 	}
 }

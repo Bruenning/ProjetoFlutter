@@ -2,9 +2,13 @@ import 'package:trabalho_flutter/objetos/Jogo.dart';
 
 class Dados{
 
-	List<String> dadosSalvos = <String>[];
-	Jogo jogo = Jogo();
+	static List<String> dadosSalvos = <String>[];
+	static Jogo jogo = Jogo();
 	
+	static reset(){
+		jogo = Jogo();
+	}
+
 
 	@override
 	String toString() {

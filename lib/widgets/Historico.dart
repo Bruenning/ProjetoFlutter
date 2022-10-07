@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
-import '../Dados/Dados.dart';
+import 'package:trabalho_flutter/Dados/Dados.dart';
+import 'package:trabalho_flutter/components/Widgets.dart';
+
+
 
 class Historico extends StatefulWidget {
 	const Historico({super.key});
@@ -14,17 +17,18 @@ class _HistoricoState  extends State<Historico>{
 	void _limparDados(){
 		setState((){
 			Dados.dadosSalvos.clear();
-			_reset();
+			Dados.reset();
 		});
 	}
-	_reset(){
+
+	String _dados(){
+		String dados = "";
+
 		setState(() {
-			Dados.jogo.nos = 0;
-			_eles = 0;
-			_multitruco = 0;
-			_isTruco = false;
-			_fim = false;
+			dados = Dados.dadosSalvos.toString();
 		});
+
+		return dados;
 	}
 
 	@override 
@@ -42,18 +46,26 @@ class _HistoricoState  extends State<Historico>{
 						children: <BootstrapCol>[
 							BootstrapCol(
 								sizes:'col-12',
-								orders:'order-12',
 								child: ElevatedButton(
 									onPressed: () {
 										_limparDados();
 									},
-									child: const Text('Limpar histórico'),
+									child: Widgets.text('Limpar histórico'),
 								),
 							),
+              				BootstrapCol(
+								sizes: 'col-12',
+								child: ElevatedButton(
+									onPressed: () {
+										Dados.reset();
+									},
+									child: Widgets.text('Resetar jogo'),
+								),
+            				),
 							BootstrapCol(
 								sizes: 'col-12',
-								child: Text(dadosSalvos.toString(),style: const TextStyle(color: Colors.white, fontSize: 18))
-							)
+								child: Widgets.text(_dados(), tamFont: 18)
+							),
 						]
 					)
 				],
