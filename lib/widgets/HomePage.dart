@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:trabalho_flutter/Dados/Dados.dart';
 import 'package:trabalho_flutter/components/Widgets.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 
 //home do placar do truco
