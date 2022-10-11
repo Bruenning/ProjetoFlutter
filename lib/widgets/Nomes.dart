@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trabalho_flutter/Dados/Dados.dart';
 import 'package:trabalho_flutter/components/Widgets.dart';
 
@@ -7,6 +8,7 @@ class Nomes extends StatefulWidget {
 	const Nomes({Key? key}) : super(key: key);
 
 	@override
+	// ignore: library_private_types_in_public_api
 	_NomesState createState() => _NomesState();
 }
 
@@ -14,10 +16,36 @@ class _NomesState extends State<Nomes> {
 	bool usarPadrao = false;
 	final _formKey = GlobalKey<FormState>();
 
+  @override
+	void initState(){
+    _leNomes();
+		super.initState();
+  }
+
+  _leNomes() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState((){
+      if(prefs.getString("nameNos") != null){
+        Dados.jogo.nameNos = prefs.getString("nameNos")!;
+        print(prefs.getString("nameNos"));
+      }
+      if(prefs.getString("nameEles") != null){
+        Dados.jogo.nameEles = prefs.getString("nameEles")!;
+        print(prefs.getString("nameNos"));
+      }
+
+    });
+
+  }
+
 	void _setarDados(String nos,String eles){
 		setState(() {
 			Dados.jogo.nameNos = nos;
+      Widgets.salvar(nos, "nameNos");
+
 			Dados.jogo.nameEles = eles;
+      Widgets.salvar(eles, "nameEles",);
 		});
 	}
 
@@ -67,22 +95,11 @@ class _NomesState extends State<Nomes> {
 											children:[
 												BootstrapCol(
 													sizes: 'col-12',
-													child: Widgets.textFormField(
-														'Nome do eles',
-														usarPadrao,
-														"nos",
-														Dados.jogo.nameNos
-
-													),
+													child: Widgets.textFormField('Nome do eles',usarPadrao,"nos",Dados.jogo.nameNos),
 												),
 												BootstrapCol(
 													sizes: 'col-12',
-													child:Widgets.textFormField(
-														'Nome do eles',
-														usarPadrao,
-														"eles",
-														Dados.jogo.nameEles,
-													),
+													child:Widgets.textFormField('Nome do eles',usarPadrao,"eles",Dados.jogo.nameEles),
 												),
 												BootstrapCol(
 													sizes: 'col-12',
@@ -91,6 +108,7 @@ class _NomesState extends State<Nomes> {
 															usarPadrao = false;
 															if (_formKey.currentState!.validate()) {
 																_formKey.currentState!.save();
+                                
 																Navigator.pushReplacementNamed(context, "/Home");
 
 															}else{

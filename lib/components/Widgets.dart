@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trabalho_flutter/Dados/Dados.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 class Widgets{
@@ -80,12 +82,15 @@ class Widgets{
 			),
 			onSaved: (newValor)=>{
 				if(newValor != null){
-					if(save == "nos")
-						Dados.jogo.nameNos = newValor
-					else
-						Dados.jogo.nameEles = newValor
-				}
+					if(save == "nos"){
+						Dados.jogo.nameNos = newValor,
+            salvar(newValor, "nameNos")
 
+          }else{
+						Dados.jogo.nameEles = newValor,
+            salvar(newValor, "nameEles")
+          }
+        }
 			},
 			// ignore: body_might_complete_normally_nullable
 			validator: (value){
@@ -102,5 +107,10 @@ class Widgets{
       content: Text(s),
       duration: const Duration(seconds: 2),
     ));
+  }
+
+  static void salvar(String texto, String key) async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, texto);
   }
 }
