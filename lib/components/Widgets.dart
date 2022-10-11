@@ -55,7 +55,7 @@ class Widgets{
 			controller: TextEditingController(text: controller),
 			style: TextStyle(
 				color: cor,
-				fontSize: 16,
+				fontSize: tamFont,
 			),
 			decoration: InputDecoration(
 				labelText: label,
