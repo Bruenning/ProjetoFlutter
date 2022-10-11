@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-	final DateFormat formatter = DateFormat('dd/mm mm:ss');
+	final DateFormat formatter = DateFormat('dd/MM HH:MM:ss');
 
 	
 	_ganhoNos(){
@@ -38,16 +38,16 @@ class _HomePageState extends State<HomePage> {
 				}else{
 					Dados.jogo.nos = valor;
 				}
-				Dados.dadosSalvos.add("\nNós: ${Dados.jogo.nos} Eles: ${Dados.jogo.eles}, no horario: ${formatter.format(DateTime.now())}");
+				Dados.dadosSalvos.add("\nH: ${formatter.format(DateTime.now())}, ${Dados.jogo.nameNos}: ${Dados.jogo.nos} | ${Dados.jogo.nameEles}: ${Dados.jogo.eles}");
 
 			}
 			else if(Dados.jogo.nos == 11 && Dados.jogo.isTruco && !Dados.jogo.fim){
 				Dados.jogo.fim = true;
-				Dados.dadosSalvos.add("\nFim de Jogo: Nós ganharam\nA proxima não seja burro em pedir truco em mão de 11\n");
+				Dados.dadosSalvos.add("\nFim de Jogo: ${Dados.jogo.nameNos} ganharam\nA proxima não seja burro em pedir truco em mão de 11\n");
 
 			}else if(!Dados.jogo.fim){
 				Dados.jogo.nos++;
-				Dados.dadosSalvos.add("\nNós: ${Dados.jogo.nos} Eles: ${Dados.jogo.eles}, no horario: ${formatter.format(DateTime.now())}");
+				Dados.dadosSalvos.add("\nH: ${formatter.format(DateTime.now())}, ${Dados.jogo.nameNos}: ${Dados.jogo.nos} | ${Dados.jogo.nameEles}: ${Dados.jogo.eles}");
 
 			}
 
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
 			
 			if(Dados.jogo.nos >= 12){
 				Dados.jogo.fim = true;
-				Dados.dadosSalvos.add("\nFim de Jogo: Nós ganharam");
+				Dados.dadosSalvos.add("\nFim de Jogo: ${Dados.jogo.nameNos} ganharam");
 			}
 
 		});
@@ -75,16 +75,16 @@ class _HomePageState extends State<HomePage> {
 				}else{
 					Dados.jogo.eles = valor;
 				}
-				Dados.dadosSalvos.add("\nNos: ${Dados.jogo.nos} Eles: ${Dados.jogo.eles}, no horario: ${formatter.format(DateTime.now())}");
+				Dados.dadosSalvos.add("\nH: ${formatter.format(DateTime.now())}, ${Dados.jogo.nameNos}: ${Dados.jogo.nos} | ${Dados.jogo.nameEles}: ${Dados.jogo.eles}");
 			}
 			else if(Dados.jogo.eles == 11 && Dados.jogo.isTruco && !Dados.jogo.fim){
 				Dados.jogo.fim = true;
-				Dados.dadosSalvos.add("\nFim de Jogo: Eles ganharam\nA proxima não seja burro em pedir truco em mão de 11\n");
+				Dados.dadosSalvos.add("\nFim de Jogo: ${Dados.jogo.nameEles} ganharam\nA proxima não seja burro em pedir truco em mão de 11\n");
 
 			}
 			else if(!Dados.jogo.fim){
 				Dados.jogo.eles++;
-				Dados.dadosSalvos.add("\nNos: ${Dados.jogo.nos} Eles: ${Dados.jogo.eles}, no horario: ${formatter.format(DateTime.now())}");
+				Dados.dadosSalvos.add("\nH: ${formatter.format(DateTime.now())}, ${Dados.jogo.nameNos}: ${Dados.jogo.nos} |  ${Dados.jogo.nameEles}: ${Dados.jogo.eles}");
 			}
 			Dados.jogo.multitruco = 0;
 			Dados.jogo.isTruco = false;
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
 
 			if(Dados.jogo.eles >= 12){
 				Dados.jogo.fim = true;
-				Dados.dadosSalvos.add("\nFim de Jogo: Eles ganharam\n");
+				Dados.dadosSalvos.add("\nFim de Jogo: ${Dados.jogo.nameEles} ganharam\n");
 			}
 
 		});
@@ -173,11 +173,11 @@ class _HomePageState extends State<HomePage> {
 							children: <BootstrapCol>[
 								BootstrapCol(
 									sizes:'col-6',
-									child: Widgets.text("Nós: ${_estado("nos")}", tamFont: 43, alinhamento: TextAlign.center)
+									child: Widgets.text("${Dados.jogo.nameNos}: ${_estado("nos")}", tamFont: 20, alinhamento: TextAlign.center)
 								),
 								BootstrapCol(
 									sizes:'col-6',
-									child: Widgets.text("Eles: ${_estado("eles")}", tamFont: 43, alinhamento: TextAlign.center)
+									child: Widgets.text("${Dados.jogo.nameEles}: ${_estado("eles")}", tamFont: 20, alinhamento: TextAlign.center)
 								),
 							],
 						),
@@ -197,16 +197,16 @@ class _HomePageState extends State<HomePage> {
 										child:Row(
 											children: <Widget>[
 												const Tab(icon: Icon(Icons.add)),
-												Widgets.text("Nós", tamFont: 16, alinhamento: TextAlign.center)
+												Widgets.text(Dados.jogo.nameNos, tamFont: 16, alinhamento: TextAlign.center)
 											],
 										),
 										onPressed:(){
 											_ganhoNos();
 											if(Dados.jogo.fim && Dados.jogo.nos == 11){
-												_showIt("O vencedor foi: Eles","A proxima não seja burro em pedir truco em mão de 11");
+												_showIt("O vencedor foi: ${Dados.jogo.nameEles}","A proxima não seja burro em pedir truco em mão de 11");
 											}
 											else if(Dados.jogo.fim){
-												_showIt("O vencedor foi: Nós", "");
+												_showIt("O vencedor foi: ${Dados.jogo.nameNos}", "");
 											}
 										}										
 									)
@@ -224,16 +224,16 @@ class _HomePageState extends State<HomePage> {
 										child:Row(
 											children: <Widget>[
 												const Tab(icon: Icon(Icons.add)),
-												Widgets.text("Eles", tamFont: 16, alinhamento: TextAlign.center)
+												Widgets.text(Dados.jogo.nameEles, tamFont: 16, alinhamento: TextAlign.center)
 											],
 										),
 										onPressed:(){
 											_ganhoEles();
 											if(Dados.jogo.fim && Dados.jogo.eles == 11){
-												_showIt("O vencedor foi: Nós","A proxima não seja burro em pedir truco em mão de 11");
+												_showIt("O vencedor foi: ${Dados.jogo.nameNos}","A proxima não seja burro em pedir truco em mão de 11");
 											}
 											else if(Dados.jogo.fim){
-												_showIt("O vencedor foi: Eles", "");
+												_showIt("O vencedor foi: ${Dados.jogo.nameEles}", "");
 											}
 										}										
 									)

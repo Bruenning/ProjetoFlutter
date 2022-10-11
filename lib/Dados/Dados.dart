@@ -6,7 +6,11 @@ class Dados{
 	static Jogo jogo = Jogo();
 	
 	static reset(){
-		jogo = Jogo();
+		jogo.eles = 0;
+		jogo.nos = 0;
+		jogo.multitruco = 0;
+		jogo.isTruco = false;
+		jogo.fim = false;
 	}
 
 
