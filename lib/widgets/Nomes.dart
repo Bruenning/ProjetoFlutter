@@ -45,7 +45,7 @@ class _NomesState extends State<Nomes> {
 					padding: const EdgeInsets.only(top:0),
 					children: <Widget>[
 						BootstrapRow(
-							height: MediaQuery.of(context).size.height,
+							height: 100,
 							children: <BootstrapCol>[
 								BootstrapCol(
 									sizes: 'col-12',
