@@ -1,0 +1,11 @@
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/truco.png 
+  branding: assets/images/escrita.png
+  # ios: false
+  # android_12:
+  #   image: assets/images/truco.png
+  #   icon_background_color: "#000"
+
+  web: false
