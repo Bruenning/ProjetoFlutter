@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage>{
 							IconData(0xe314, fontFamily: 'MaterialIcons'),
 							color: Colors.black,
 						),
-						label: "Aniversário",
+						label: "Histórico",
 					),
 				],
 				currentIndex: 0,

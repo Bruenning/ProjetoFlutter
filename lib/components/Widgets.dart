@@ -84,11 +84,11 @@ class Widgets{
 				if(newValor != null){
 					if(save == "nos"){
 						Dados.jogo.nameNos = newValor,
-            salvar(newValor, "nameNos")
+            salvarString(newValor, "nameNos")
 
           }else{
 						Dados.jogo.nameEles = newValor,
-            salvar(newValor, "nameEles")
+            salvarString(newValor, "nameEles")
           }
         }
 			},
@@ -102,15 +102,30 @@ class Widgets{
 		);
 	}
 
-  static void snackBar(BuildContext context, String s) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(s),
-      duration: const Duration(seconds: 2),
-    ));
-  }
+	static void snackBar(BuildContext context, String s) {
+		ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+		content: Text(s),
+		duration: const Duration(seconds: 2),
+		));
+	}
 
-  static void salvar(String texto, String key) async{
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, texto);
-  }
+	static void salvarString(String texto, String key) async{
+		final prefs = await SharedPreferences.getInstance();
+		prefs.setString(key, texto);
+	}
+
+	static void salvarInt(int texto, String key) async{
+		final prefs = await SharedPreferences.getInstance();
+		prefs.setInt(key, texto);
+	}
+
+	static Future<String> lerString(String key) async{
+		final prefs = await SharedPreferences.getInstance();
+		return prefs.getString(key) ?? "";
+	}
+  
+  static Future<int> lerInt(String key) async{
+		final prefs = await SharedPreferences.getInstance();
+		return prefs.getInt(key) ?? 0;
+	}
 }

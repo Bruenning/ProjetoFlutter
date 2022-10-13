@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
@@ -24,7 +24,36 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 	final DateFormat formatter = DateFormat('dd/MM HH:MM:ss');
 
-	
+	@override
+	void initState(){
+		_leNomes();
+		super.initState();
+	}
+
+	_leNomes() async{
+		setState((){
+			if(Widgets.lerInt("nos") != ""){
+				Future<int> dados = Widgets.lerInt("nos");
+				dados.then((value) =>_setarDadoUnico(value, "nos"));
+			}
+			if(Widgets.lerInt("eles")!= ""){
+				Future<int> dados = Widgets.lerInt("eles");
+				dados.then((value) =>_setarDadoUnico(value, "eles"));
+			}
+		});
+
+	}
+	void _setarDadoUnico(int dado,String onde){
+		setState(() {
+			if(onde == "nos"){
+				Dados.jogo.nos = dado;
+			}else{
+				Dados.jogo.eles = dado;
+			}
+		});
+	}
+
+
 	_ganhoNos(){
 		setState(() {
 			if(Dados.jogo.nos == 0 && Dados.jogo.eles == 0) {
@@ -58,6 +87,7 @@ class _HomePageState extends State<HomePage> {
 				Dados.jogo.fim = true;
 				Dados.dadosSalvos.add("\nFim de Jogo: ${Dados.jogo.nameNos} ganharam");
 			}
+      		Widgets.salvarInt(Dados.jogo.nos, "nos");
 
 		});
 	}
@@ -94,7 +124,7 @@ class _HomePageState extends State<HomePage> {
 				Dados.jogo.fim = true;
 				Dados.dadosSalvos.add("\nFim de Jogo: ${Dados.jogo.nameEles} ganharam\n");
 			}
-
+      		Widgets.salvarInt(Dados.jogo.eles, "eles");
 		});
 	}
 	String _estado(tipo){

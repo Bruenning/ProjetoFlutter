@@ -1,6 +1,7 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trabalho_flutter/Dados/Dados.dart';
 import 'package:trabalho_flutter/components/Widgets.dart';
 
@@ -16,36 +17,44 @@ class _NomesState extends State<Nomes> {
 	bool usarPadrao = false;
 	final _formKey = GlobalKey<FormState>();
 
-  @override
+	@override
 	void initState(){
-    _leNomes();
+		_leNomes();
 		super.initState();
-  }
+	}
 
-  _leNomes() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+	_leNomes() async{
+		setState((){
+			if(Widgets.lerString("nameNos") != "") {
+        		Future<String> dados = Widgets.lerString("nameNos");
+				dados.then((value) =>_setarDadoUnico(value, "nameNos"));
+			}
+			if(Widgets.lerString("nameEles") != "") {
+        	Future<String> dados = Widgets.lerString("nameEles");
+				  dados.then((value) =>_setarDadoUnico(value, "nameEles"));
 
-    setState((){
-      if(prefs.getString("nameNos") != null){
-        Dados.jogo.nameNos = prefs.getString("nameNos")!;
-        print(prefs.getString("nameNos"));
-      }
-      if(prefs.getString("nameEles") != null){
-        Dados.jogo.nameEles = prefs.getString("nameEles")!;
-        print(prefs.getString("nameNos"));
-      }
+			}
+		});
 
-    });
-
-  }
+	}
+	void _setarDadoUnico(String dado,String onde){
+		setState(() {
+			if(onde == "nameNos"){
+				Dados.jogo.nameNos = dado;
+			}else{
+				Dados.jogo.nameEles = dado;
+			}
+		});
+	}
 
 	void _setarDados(String nos,String eles){
 		setState(() {
 			Dados.jogo.nameNos = nos;
-      Widgets.salvar(nos, "nameNos");
+      Widgets.salvarString(nos, "nameNos");
 
 			Dados.jogo.nameEles = eles;
-      Widgets.salvar(eles, "nameEles",);
+      Widgets.salvarString(eles, "nameEles");
+
 		});
 	}
 
